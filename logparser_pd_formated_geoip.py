@@ -4,7 +4,10 @@ import numpy as np
 import datetime
 import ipaddress
 import requests
+import os
 
+
+API_KEY=os.environ["API_KEY"]
 file = open("logfile.log", 'r')
 
 
@@ -29,7 +32,7 @@ for ip in ips:
     print(ip)
     if ipaddress.ip_address(ip).is_global:
         response = requests.get(
-            f"https://api.ipgeolocation.io/ipgeo?apiKey=64c265c69b3348f784d5ea0c407269b0&ip={ip}")
+            f"https://api.ipgeolocation.io/ipgeo?apiKey={API_KEY}&ip={ip}")
         response_body = response.json()
         geoip_dict.append({"ip_address": ip, "country": response_body["country_name"], "city": response_body["city"],
                            "isp": response_body["isp"], "latitude": response_body["latitude"], "longitude": response_body["longitude"]})
