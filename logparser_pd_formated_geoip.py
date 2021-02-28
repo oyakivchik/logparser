@@ -55,5 +55,5 @@ result["isp"] = result["isp"].mask(result["isp"].duplicated())
 result["latitude"] = result["latitude"].mask(result["latitude"].duplicated())
 result["longitude"] = result["longitude"].mask(
     result["longitude"].duplicated())
-result.to_excel("output/access_logs_formatted_geoip.xlsx")
+result.to_excel("output/access_logs_formated_geoip.xlsx")
 file.close()
