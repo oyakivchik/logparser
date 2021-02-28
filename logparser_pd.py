@@ -2,8 +2,11 @@ import re
 import pandas as pd
 import numpy as np
 import datetime
+import sys
+from pathlib import Path
 
-file = open ("logfile.log", 'r')
+file = open(sys.argv[1], 'r')
+Path("output").mkdir(parents=True, exist_ok=True)
  
 
 logs_entries = []
@@ -16,5 +19,5 @@ for entry in file:
         logs_entries.append({"hostname": line.group(3), "ip_address": line.group(6), "date_time": datetime_obj, "message": line.group(5)})
 
 df = pd.DataFrame(logs_entries)
-df.to_excel("output.xlsx")
+df.to_excel("output/access_logs.xlsx")
 file.close()

@@ -5,11 +5,14 @@ import datetime
 import ipaddress
 import requests
 import os
+import sys
+from pathlib import Path
 
 
 API_KEY=os.environ["API_KEY"]
-file = open("logfile.log", 'r')
 
+file = open(sys.argv[1], 'r')
+Path("output").mkdir(parents=True, exist_ok=True)
 
 logs_entries = []
 
@@ -52,5 +55,5 @@ result["isp"] = result["isp"].mask(result["isp"].duplicated())
 result["latitude"] = result["latitude"].mask(result["latitude"].duplicated())
 result["longitude"] = result["longitude"].mask(
     result["longitude"].duplicated())
-result.to_excel("output_formatted_geoip.xlsx")
+result.to_excel("output/access_logs_formatted_geoip.xlsx")
 file.close()

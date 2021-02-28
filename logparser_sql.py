@@ -1,8 +1,12 @@
 import re
 from sqlalchemy import create_engine, MetaData, Table, Column, Integer, String, DateTime
 import datetime
+import sys
+from pathlib import Path
 
-engine = create_engine('sqlite:///access.db', echo = False)
+Path("output").mkdir(parents=True, exist_ok=True)
+
+engine = create_engine('sqlite:///output/access.db', echo = False)
 meta = MetaData()
 
 access_logs = Table(
@@ -18,7 +22,8 @@ meta.create_all(engine)
 
 conn = engine.connect()
 logs_entries = []
-file = open ("logfile.log", 'r')
+
+file = open(sys.argv[1], 'r')
  
 for entry in file:
     line = re.compile(r'^((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(sshd)\S+:\s+(.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}).*)$').search(entry)

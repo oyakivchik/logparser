@@ -2,8 +2,11 @@ import re
 import pandas as pd
 import numpy as np
 import datetime
+import sys
+from pathlib import Path
 
-file = open ("logfile.log", 'r')
+file = open(sys.argv[1], 'r')
+Path("output").mkdir(parents=True, exist_ok=True)
  
 
 logs_entries = []
@@ -19,5 +22,5 @@ df = pd.DataFrame(logs_entries)
 df.sort_values(by=['ip_address'], ascending=True, inplace=True, kind='mergesort')
 df["hostname"] = df["hostname"].mask(df["hostname"].duplicated())
 df["ip_address"] = df["ip_address"].mask(df["ip_address"].duplicated())
-df.to_excel("output_formatted.xlsx")
+df.to_excel("output/access_log_formatted.xlsx")
 file.close()

@@ -4,8 +4,12 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 import re
 import datetime
+import sys
+from pathlib import Path
 
-engine = create_engine('sqlite:///access.db', echo = False)
+Path("output").mkdir(parents=True, exist_ok=True)
+
+engine = create_engine('sqlite:///output/access_orm.db', echo = False)
 
 Base = declarative_base()
 
@@ -22,7 +26,8 @@ class LogEntry(Base):
 
 Base.metadata.create_all(engine)
 
-file = open ("logfile.log", 'r')
+file = open(sys.argv[1], 'r')
+
 logs_entries = []
 
 for entry in file:
