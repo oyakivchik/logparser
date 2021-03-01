@@ -39,3 +39,4 @@ for entry in file:
 
 session.bulk_save_objects(logs_entries)
 session.commit()
+session.close()
