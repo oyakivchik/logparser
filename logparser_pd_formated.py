@@ -9,8 +9,8 @@ file = open(sys.argv[1], 'r')
 Path("output").mkdir(parents=True, exist_ok=True)
  
 
-logs_entries = []
 
+logs_entries = []
 for entry in file:
     line = re.compile(r'^((Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+\d{2}:\d{2}:\d{2})\s+(\S+)\s+(sshd)\S+:\s+(.*?(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}).*)$').search(entry)
     if line:
@@ -20,7 +20,7 @@ for entry in file:
 
 df = pd.DataFrame(logs_entries)
 df.sort_values(by=['ip_address'], ascending=True, inplace=True, kind='mergesort')
-df["hostname"] = df["hostname"].mask(df["hostname"].duplicated())
-df["ip_address"] = df["ip_address"].mask(df["ip_address"].duplicated())
+df["hostname"].mask(df["hostname"].duplicated(), inplace=True)
+df["ip_address"].mask(df["ip_address"].duplicated(), inplace=True)
 df.to_excel("output/access_log_formated.xlsx")
 file.close()
