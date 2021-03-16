@@ -4,10 +4,6 @@ from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
-def make_tarfile(output_filename, source_dir):
-    with tarfile.open(output_filename, "w:gz") as tar:
-        tar.add(source_dir, arcname=os.path.basename(source_dir))
-
 subject = "Your 4-hour access report"
 sender_email = os.environ["SENDER_EMAIL"]
 receiver_email = os.environ["RECEIVER_EMAIL"]
@@ -34,10 +30,8 @@ text = MIMEText(text, "plain")
 message.attach(text)
 
 # Create file for sending
-filename = "output/report.tar.gz"  # In same directory as script
-display_filename = "report.tar.gz"
-
-make_tarfile(filename, "output/")
+filename = "output/access_log_formated.xlsx"  # In same directory as script
+display_filename = "access_log.xlsx"
 
 # Open file in binary mode
 with open(filename, "rb") as attachment:
