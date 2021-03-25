@@ -50,15 +50,15 @@ jobs:
           source: "output/"
           target: "/home/testuser/oyakivchik/lesson7/"
           strip_components: 1
-      - name: Email report
-        run: |
-          python send_email.py
-        env:
-          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
-          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
-          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
-          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+#      - name: Email report
+#        run: |
+#          python send_email.py
+#        env:
+#          SENDER_EMAIL: ${{ secrets.SENDER_EMAIL }}
+#          RECEIVER_EMAIL: ${{ secrets.RECEIVER_EMAIL }}
+#          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+#          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+#          SMTP_PORT: ${{ secrets.SMTP_PORT }}
       - name: Cleanup SSH directory
         run: |
           rm -r ~/.ssh
